@@ -4,6 +4,8 @@ source 'http://rea-rubygems'
 gem 'rake'
 gem 'activesupport'
 gem 'httparty'
+gem 'rack'
+gem 'sinatra'
 
 group :development, :test do
   gem 'pry'
