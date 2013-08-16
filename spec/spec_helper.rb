@@ -1,0 +1,3 @@
+require 'ap'
+
+$:.unshift 'lib'

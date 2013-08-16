@@ -25,5 +25,5 @@ desc 'Run the client'
 task :run_client => :init do
   require 'client'
   require 'ap'
-  ap Client.new.load_producer_json
+  Client.new.process_data
 end

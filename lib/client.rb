@@ -15,10 +15,12 @@ class Client
 
   def process_data
     data = load_producer_json
+    ap data
     value = data['count'] / 100
     date = Time.parse(data['date'])
     puts value
     puts date
+    [value, date]
   end
 
 end
