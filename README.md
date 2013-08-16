@@ -148,8 +148,8 @@ However, there is a problem with this integration point. The producer returns a 
 Lets setup Pact in the consumer. Pact lets the consumers define the expectations for the integration point.
 
 spec_helper.rb:
-    require 'ap'
 
+    require 'ap'
 
     require 'pact'
     require 'pact/consumer/rspec'
