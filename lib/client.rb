@@ -13,4 +13,12 @@ class Client
     end
   end
 
+  def process_data
+    data = load_producer_json
+    value = data['count'] / 100
+    date = Time.parse(data['date'])
+    puts value
+    puts date
+  end
+
 end

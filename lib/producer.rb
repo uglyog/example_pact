@@ -7,8 +7,8 @@ class Producer < Sinatra::Base
     valid_time = Time.parse(params[:valid_date])
     JSON.pretty_generate({
       :test => 'NO',
-      :valid_date => DateTime.new,
-      :count => '1000'
+      :valid_date => DateTime.now,
+      :count => 1000
     })
   end
 
