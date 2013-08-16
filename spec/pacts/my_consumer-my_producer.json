@@ -11,24 +11,24 @@
       "request": {
         "method": "get",
         "path": "/producer.json",
-        "query": "valid_date=Fri,%2016%20Aug%202013%2006:09:44%20GMT"
+        "query": "valid_date=Fri,%2016%20Aug%202013%2007:12:19%20GMT"
       },
       "response": {
         "status": 200,
         "headers": {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json;charset=utf-8"
         },
         "body": {
           "test": "NO",
           "date": "2013-08-16T15:31:20+10:00",
-          "count": 100
+          "count": 1000
         }
       },
       "producer_state": "producer is in a sane state"
     }
   ],
   "metadata": {
-    "date": "2013-08-16T16:09:44+10:00",
+    "date": "2013-08-16T17:12:19+10:00",
     "pact_gem": {
       "version": "0.1.23"
     }
