@@ -17,13 +17,18 @@ RSpec::Core::RakeTask.new(:spec)
 
 task :default => [:spec, 'pact:tests']
 
-task :init do
-  $:.unshift 'lib'
-end
+$:.unshift 'lib'
 
 desc 'Run the client'
-task :run_client => :init do
+task :run_client do
   require 'client'
   require 'ap'
   Client.new.process_data
+end
+
+require 'pact'
+require 'pact/verification_task'
+
+Pact::VerificationTask.new(:local) do | pact |
+  pact.uri 'spec/pacts/my_consumer-my_producer.json', support_file: './spec/pacts/pact_helper'
 end
