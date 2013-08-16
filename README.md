@@ -11,7 +11,7 @@ Pact is a ruby gem that allows you to define a pact between service consumers an
 
 This allows you to test both sides of an integration point using fast unit tests.
 
-=Example Pact use=
+#Example Pact use#
 
 Given we have a client that needs to make a HTTP GET request to a sinatra webapp, and requires a response in JSON format. The client would look something like:
 
@@ -143,7 +143,7 @@ Let's run this spec and see it all pass:
 
 However, there is a problem with this integration point. The producer returns a 'valid_date' while the consumer is trying to use 'date', which will blow up when run for real even with the tests all passing. Here is where Pact comes in.
 
-=Pact to the rescue=
+#Pact to the rescue#
 
 Lets setup Pact in the consumer. Pact lets the consumers define the expectations for the integration point.
 
