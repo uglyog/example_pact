@@ -17,4 +17,30 @@ describe Client do
     expect(subject.process_data).to eql([1, Time.parse(json_data['date'])])
   end
 
+  describe 'pact with producer', :pact => true do
+
+    let(:date) { Time.now.httpdate }
+
+    before do
+      my_producer.
+        given("producer is in a sane state").
+          upon_receiving("a request for producer json").
+            with({
+                method: :get,
+                path: '/producer.json',
+                query: URI::encode('valid_date=' + date)
+            }).
+            will_respond_with({
+              status: 200,
+              headers: { 'Content-Type' => 'application/json' },
+              body: json_data
+            })
+    end
+
+    it 'can process the json payload from the producer' do
+      expect(subject.process_data).to eql([1, Time.parse(json_data['date'])])
+    end
+
+  end
+
 end
