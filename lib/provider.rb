@@ -1,9 +1,13 @@
 require 'sinatra/base'
 require 'json'
 
-class Producer < Sinatra::Base
+class Provider < Sinatra::Base
 
-  get '/producer.json', :provides => 'json' do
+  before do
+    content_type 'application/json;charset=utf-8'
+  end
+
+  get '/provider.json', :provides => 'json' do
     valid_time = Time.parse(params[:valid_date])
     JSON.pretty_generate({
       :test => 'NO',
@@ -11,5 +15,4 @@ class Producer < Sinatra::Base
       :count => 1000
     })
   end
-
 end
