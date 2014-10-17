@@ -1,5 +1,4 @@
 source 'https://rubygems.org'
-source 'http://rea-rubygems'
 
 gem 'rake'
 gem 'activesupport'
