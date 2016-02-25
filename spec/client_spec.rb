@@ -13,31 +13,31 @@ describe Client do
   let(:response) { double('Response', :success? => true, :body => json_data.to_json) }
 
   it 'can process the json payload from the producer' do
-    HTTParty.stub(:get).and_return(response)
+    allow(HTTParty).to receive_messages(:get => response)
     expect(subject.process_data).to eql([10, Time.parse(json_data['date'])])
   end
 
-  describe 'pact with producer', :pact => true do
+  describe 'pact with provider', :pact => true do
 
     let(:date) { Time.now.httpdate }
 
     before do
-      my_producer.
-        given("producer is in a sane state").
-          upon_receiving("a request for producer json").
-            with({
+      my_provider.
+        given("provider is in a sane state").
+          upon_receiving("a request for provider json").
+            with(
                 method: :get,
-                path: '/producer.json',
+                path: '/provider.json',
                 query: URI::encode('valid_date=' + date)
-            }).
-            will_respond_with({
+            ).
+            will_respond_with(
               status: 200,
               headers: { 'Content-Type' => 'application/json;charset=utf-8' },
               body: json_data
-            })
+            )
     end
 
-    it 'can process the json payload from the producer' do
+    it 'can process the json payload from the provider' do
       expect(subject.process_data).to eql([10, Time.parse(json_data['date'])])
     end
 

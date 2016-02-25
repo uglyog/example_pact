@@ -26,9 +26,9 @@ task :run_client do
   Client.new.process_data
 end
 
-require 'pact'
-require 'pact/verification_task'
-
-Pact::VerificationTask.new(:local) do | pact |
-  pact.uri 'spec/pacts/my_consumer-my_producer.json', support_file: './spec/pacts/pact_helper'
-end
+# require 'pact'
+# require 'pact/verification_task'
+#
+# Pact::VerificationTask.new(:local) do | pact |
+#   pact.uri 'spec/pacts/my_consumer-my_provider.json', support_file: './spec/pacts/pact_helper'
+# end

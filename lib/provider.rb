@@ -1,9 +1,9 @@
 require 'sinatra/base'
 require 'json'
 
-class Producer < Sinatra::Base
+class Provider < Sinatra::Base
 
-  get '/producer.json', :provides => 'json' do
+  get '/provider.json', :provides => 'json' do
     valid_time = Time.parse(params[:valid_date])
     JSON.pretty_generate({
       :test => 'NO',

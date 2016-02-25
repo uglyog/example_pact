@@ -1,17 +1,18 @@
 {
-  "producer": {
-    "name": "My Producer"
-  },
   "consumer": {
     "name": "My Consumer"
   },
+  "provider": {
+    "name": "My Provider"
+  },
   "interactions": [
     {
-      "description": "a request for producer json",
+      "description": "a request for provider json",
+      "provider_state": "provider is in a sane state",
       "request": {
         "method": "get",
-        "path": "/producer.json",
-        "query": "valid_date=Fri,%2016%20Aug%202013%2007:12:19%20GMT"
+        "path": "/provider.json",
+        "query": "valid_date=Thu,%2025%20Feb%202016%2004:35:56%20GMT"
       },
       "response": {
         "status": 200,
@@ -23,14 +24,10 @@
           "date": "2013-08-16T15:31:20+10:00",
           "count": 1000
         }
-      },
-      "producer_state": "producer is in a sane state"
+      }
     }
   ],
   "metadata": {
-    "date": "2013-08-16T17:12:19+10:00",
-    "pact_gem": {
-      "version": "0.1.23"
-    }
+    "pactSpecificationVersion": "1.0.0"
   }
 }

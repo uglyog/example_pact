@@ -1,18 +1,12 @@
 require 'ap'
-
-require 'pact'
 require 'pact/consumer/rspec'
 
-$:.unshift 'lib'
+# $:.unshift 'lib'
 
-Pact.configure do | config |
-  config.consumer do
-    name 'My Consumer'
-  end
-end
-
-Pact.with_producer "My Producer" do
-  mock_service :my_producer do
-    port 8081
+Pact.service_consumer "My Consumer" do
+  has_pact_with "My Provider" do
+    mock_service :my_provider do
+      port 1234
+    end
   end
 end

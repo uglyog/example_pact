@@ -1,2 +1,2 @@
-require './lib/producer'
-run Producer
+require './lib/provider'
+run Provider
