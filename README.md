@@ -17,6 +17,7 @@ Given we have a client that needs to make a HTTP GET request to a sinatra webapp
 
 client.rb:
 
+```ruby
     require 'httparty'
     require 'uri'
     require 'json'
@@ -33,10 +34,12 @@ client.rb:
 
 
     end
+```
 
 and the producer:
 producer.rb
 
+```ruby
     require 'sinatra/base'
     require 'json'
 
@@ -54,33 +57,37 @@ producer.rb
       end
 
     end
-
+```
 
 This producer expects a valid_date parameter in HTTP date format, and then returns some simple json back.
 
 Running the client with the following rake task against the producer works nicely:
 
+```ruby
     desc 'Run the client'
     task :run_client => :init do
       require 'client'
       require 'ap'
       ap Client.new.load_producer_json
     end
-
+```
 
     $ rake run_client
+    
+```ruby    
     http://localhost:8081/producer.json?valid_date=Thu,%2015%20Aug%202013%2003:15:15%20GMT
     {
               "test" => "NO",
         "valid_date" => "2013-08-15T13:31:39+10:00",
              "count" => 1000
     }
-
+```
 
 Now lets get the client to use the data it gets back from the producer. Here is the updated client method that uses the returned data:
 
 client.rb
 
+```ruby
       def process_data
         data = load_producer_json
         ap data
@@ -90,11 +97,13 @@ client.rb
         puts date
         [value, date]
       end
+```
 
 Add a spec to test this client:
 
 client_spec.rb:
 
+```ruby
     require 'spec_helper'
     require 'client'
 
@@ -119,6 +128,7 @@ client_spec.rb:
 
 
     end
+```
 
 Let's run this spec and see it all pass:
 
@@ -149,6 +159,8 @@ Lets setup Pact in the consumer. Pact lets the consumers define the expectations
 
 spec_helper.rb:
 
+
+```ruby
     require 'ap'
 
     require 'pact'
@@ -170,7 +182,7 @@ spec_helper.rb:
         port 8081
       end
     end
-
+```
 
 This defines a consumer and a producer that runs on port 8081.
 
@@ -178,6 +190,7 @@ The spec for the client now has a pact section.
 
 client_spec.rb:
 
+```ruby
     describe 'pact with producer', :pact => true do
 
       let(:date) { Time.now.httpdate }
@@ -203,7 +216,7 @@ client_spec.rb:
       end
 
     end
-
+```
 
 Running this spec still passes, but it creates a pact file which we can use to validate our assumptions on the producer side.
 
@@ -271,13 +284,12 @@ Generated pact file (spec/pacts/my_consumer-my_producer.json):
         }
       }
     }
-
 #Producer Setup#
 
 Pact has a rake task to verify the producer against the generated pact file. It can get the pact file from any URL (like the last sucessful CI build), but we just going to use the local one. Here is the addition to the Rakefile.
 
 Rakefile:
-
+```ruby
     require 'pact'
     require 'pact/verification_task'
 
@@ -285,11 +297,12 @@ Rakefile:
     Pact::VerificationTask.new(:local) do | pact |
       pact.uri 'spec/pacts/my_consumer-my_producer.json', support_file: './spec/pacts/pact_helper'
     end
+```
 
 The pact_helper needs to tell Pact which Rack app it needs to test against.
 
 spec/pacts/pact_helper.rb
-
+```ruby
     Pact.with_consumer 'My Consumer' do
       producer_state "producer is in a sane state" do
         set_up do
@@ -306,11 +319,10 @@ spec/pacts/pact_helper.rb
         app { Producer.new }
       end
     end
-
+```
 Now if we run our pact verification task, it should fail.
 
     $ rake pact:verify:local
-
 
     Pact in spec/pacts/my_consumer-my_producer.json
       Given producer is in a sane state
